@@ -1,0 +1,12 @@
+libjsonparser_la-SourceStreamPreprocessor.lo \
+  libjsonparser_la-SourceStreamPreprocessor.o:  \
+ SourceStreamPreprocessor.cpp SourceStreamPreprocessor.h SourceStream.h \
+  ../../util/StringBuilder.h ../../util/MyString.h
+
+SourceStreamPreprocessor.h:
+
+SourceStream.h:
+
+../../util/StringBuilder.h:
+
+../../util/MyString.h:

@@ -1,0 +1,8 @@
+libjsonparser_la-JsonToken.lo libjsonparser_la-JsonToken.o:  \
+ JsonToken.cpp JsonToken.h ../../util/MyString.h JsonError.h
+
+JsonToken.h:
+
+../../util/MyString.h:
+
+JsonError.h:
