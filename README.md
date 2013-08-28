@@ -23,6 +23,7 @@ Requirements
 * Mac OS X or Linux
 * GUN g++
 * GNU make
+* GUN libtool
 
 TODO
 ------------
