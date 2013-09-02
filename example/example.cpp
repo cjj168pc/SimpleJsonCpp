@@ -21,23 +21,23 @@ void testJsonValues()
     RefPtr<JsonObject> obj = JsonObject::create();
     {
         RefPtr<JsonObject> subobj = JsonObject::create();
-        obj->add(String(L"abc"), subobj.get());
-        obj->add(String(L"acc"), JsonObject::create().get());
-        obj->add(String(L"daaa"), JsonString::create(String(L"string")).get());
-        obj->add(String(L"array"), JsonArray::create().get());
+        obj->add(L"abc", subobj);
+        obj->add(L"acc", JsonObject::create());
+        obj->add(L"daaa", JsonString::create(L"string"));
+        obj->add(L"array", JsonArray::create());
     }
     
-    RefPtr<JsonString> sss = static_cast<JsonString*>(obj->getValue(String(L"daaa")));
+	JsonString* sss = obj->getValue(L"daaa")->asString();
     print(sss->getString());
     
-    RefPtr<JsonArray> arr = static_cast<JsonArray*>(obj->getValue(String(L"array")));
-    arr->add(JsonString::create(String(L"this is an array item")).get());
-    arr->add(JsonNumber::create(10.4).get());
+	JsonArray* arr = obj->getValue(L"array")->asArray();
+    arr->add(JsonString::create(L"this is an array item"));
+    arr->add(JsonNumber::create(10.4));
     
-    RefPtr<JsonString> strInArr = static_cast<JsonString*>(arr->get(0));
+	JsonString* strInArr = arr->get(0)->asString();
     print(strInArr->getString());
     
-    RefPtr<JsonNumber> jn = static_cast<JsonNumber*>(arr->get(1));
+	JsonNumber* jn = arr->get(1)->asNumber();
     printf("\n%f ", jn->getValue());
 }
 
@@ -59,18 +59,18 @@ int main(int argc, const char * argv[])
     RefPtr<JsonValue> res = parser.parse(source);
     if (!res.isNull())
     {
-        JsonObject* root = static_cast<JsonObject*>(res.get());
-        JsonNumber* num = static_cast<JsonNumber*>(root->getValue(String(L"ww")));
+		JsonObject* root = res->asObject();
+		JsonNumber* num = root->getValue(L"ww")->asNumber();
         
         printf("num = %f\n", num->getValue());
         
-        String jss = SJ_ValueToString(root);
+		String jss = jsonValueToString(root);
         print(jss);
         
         RefPtr<JsonValue> v = parser.parse(jss);
         if (!v.isNull())
         {
-            jss = SJ_ValueToString(v.get());
+			jss = jsonValueToString(v.get());
             printf("\n");
             print(jss);
             if (v != root)

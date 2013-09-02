@@ -9,7 +9,7 @@
 #include "SimpleJson.h"
 
 
-String SJ_ValueToString(JsonValue *value)
+String jsonValueToString(JsonValue *value)
 {
     if (value == 0)
     {

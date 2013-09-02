@@ -116,6 +116,16 @@ public:
     {
         return !_ptr;
     }
+
+	T* operator()()
+	{
+		return _ptr;
+	}
+
+	const T* operator()() const
+	{
+		return _ptr;
+	}
     
     template <typename U>
     friend PassPtr<U> adoptRef(U* ptr);

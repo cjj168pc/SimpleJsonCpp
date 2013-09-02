@@ -55,6 +55,11 @@ void JsonObject::add(const String& key, JsonValue* value)
     _pairs.insert(std::make_pair(key, RefPtr<JsonValue>(value)));
 }
 
+void JsonObject::add(const String& key, RefPtr<JsonValue> value)
+{
+	add(key, value.get());
+}
+
 JsonValue* JsonObject::getValue(const String& key) const
 {
     PairMap::const_iterator res = _pairs.find(key);

@@ -52,6 +52,11 @@ void JsonArray::add(JsonValue* value)
     _values.push_back(RefPtr<JsonValue>(value));
 }
 
+void JsonArray::add(RefPtr<JsonValue> value)
+{
+	add(value.get());
+}
+
 JsonValue* JsonArray::get(int index) const
 {
     return _values.at(index).get();

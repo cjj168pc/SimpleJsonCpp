@@ -59,7 +59,13 @@ public:
     {
         _ptr = rhs.leak();
     }
-    
+
+	template <typename U>
+	RefPtr(const PassPtr<U>& rhs)
+	{
+		_ptr = rhs.leak();
+	}
+
     RefPtr(T* ptr)
         : _ptr(ptr)
     {
@@ -174,6 +180,16 @@ public:
     {
         return !_ptr;
     }
+
+	T* operator()()
+	{
+		return _ptr;
+	}
+
+	const T* operator()() const
+	{
+		return _ptr;
+	}
 };
 
 

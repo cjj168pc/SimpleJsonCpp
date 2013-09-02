@@ -24,6 +24,7 @@ public:
     virtual ValueType type() const;
     virtual void toString(StringBuilder& target) const;
     void add(const String& key, JsonValue* value);
+	void add(const String& key, RefPtr<JsonValue> value);
     JsonValue* getValue(const String& key) const;
     int count() const;
     

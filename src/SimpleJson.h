@@ -17,6 +17,6 @@
 #include "JsonNull.h"
 #include "JsonParser.h"
 
-String SJ_ValueToString(JsonValue *value);
+String jsonValueToString(JsonValue *value);
 
 #endif

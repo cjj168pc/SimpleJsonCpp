@@ -12,6 +12,13 @@
 #include "RefCounted.h"
 #include "StringBuilder.h"
 
+class JsonObject;
+class JsonString;
+class JsonArray;
+class JsonNumber;
+class JsonBoolean;
+class JsonNull;
+
 class JsonValue : public RefCounted<JsonValue>
 {
 public:
@@ -31,7 +38,57 @@ public:
     
     virtual ValueType type() const = 0;
     virtual void toString(StringBuilder& target) const = 0;
-    
+
+	inline JsonObject* asObject()
+	{
+		if (type() == Object)
+		{
+			return static_cast<JsonObject*>(static_cast<void*>(this));
+		}
+		return 0;
+	}
+
+	inline JsonArray* asArray()
+	{
+		if (type() == Array)
+		{
+			return static_cast<JsonArray*>(static_cast<void*>(this));
+		}
+		return 0;
+	}
+
+	inline JsonString* asString()
+	{
+		if (type() == Literal)
+		{
+			return static_cast<JsonString*>(static_cast<void*>(this));
+		}
+		return 0;
+	}
+
+	inline JsonNumber* asNumber()
+	{
+		if (type() == Number)
+		{
+			return static_cast<JsonNumber*>(static_cast<void*>(this));
+		}
+		return 0;
+	}
+
+	inline JsonBoolean* asBoolean()
+	{
+		if (type() == Boolean)
+		{
+			return static_cast<JsonBoolean*>(static_cast<void*>(this));
+		}
+		return 0;
+	}
+
+	inline bool isNull() const
+	{
+		return type() == Null;
+	}
+
 protected:
     JsonValue()
     {
