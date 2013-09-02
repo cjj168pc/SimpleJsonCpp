@@ -14,3 +14,8 @@
 
 # Mac conf file
 .DS_Store
+
+# autotool files
+.deps
+config.log
+autom4te.cache

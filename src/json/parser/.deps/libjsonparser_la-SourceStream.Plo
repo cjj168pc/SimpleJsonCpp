@@ -1,9 +1,0 @@
-libjsonparser_la-SourceStream.lo libjsonparser_la-SourceStream.o:  \
- SourceStream.cpp SourceStream.h ../../util/StringBuilder.h \
-  ../../util/MyString.h
-
-SourceStream.h:
-
-../../util/StringBuilder.h:
-
-../../util/MyString.h:

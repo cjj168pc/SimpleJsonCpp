@@ -1,8 +1,0 @@
-JsonToken.o JsonToken.o: JsonToken.cpp JsonToken.h ../../util/MyString.h \
-  JsonError.h
-
-JsonToken.h:
-
-../../util/MyString.h:
-
-JsonError.h:
