@@ -33,6 +33,7 @@ void testJsonValues()
 	JsonArray* arr = obj->getValue(L"array")->asArray();
     arr->add(JsonString::create(L"this is an array item"));
     arr->add(JsonNumber::create(10.4));
+    arr->add(JsonString::create(L"a string literal"));
     
 	JsonString* strInArr = arr->get(0)->asString();
     print(strInArr->getString());

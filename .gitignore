@@ -12,6 +12,9 @@
 *.la
 *.a
 
+# Compiled debug symbols
+*.dSYM
+
 # Mac conf file
 .DS_Store
 
