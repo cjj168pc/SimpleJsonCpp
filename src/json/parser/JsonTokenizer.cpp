@@ -40,7 +40,7 @@ static inline wchar_t hexDigit(wchar_t ch)
     }
     else
     {
-        return ch - 'A';
+        return 10 + ch - 'A';
     }
 }
 

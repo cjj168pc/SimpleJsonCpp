@@ -54,7 +54,7 @@ void JsonArray::add(JsonValue* value)
 
 void JsonArray::add(RefPtr<JsonValue> value)
 {
-	add(value.get());
+    add(value.get());
 }
 
 JsonValue* JsonArray::get(int index) const

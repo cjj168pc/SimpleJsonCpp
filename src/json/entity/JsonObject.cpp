@@ -57,7 +57,7 @@ void JsonObject::add(const String& key, JsonValue* value)
 
 void JsonObject::add(const String& key, RefPtr<JsonValue> value)
 {
-	add(key, value.get());
+    add(key, value.get());
 }
 
 JsonValue* JsonObject::getValue(const String& key) const

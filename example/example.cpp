@@ -27,18 +27,18 @@ void testJsonValues()
         obj->add(L"array", JsonArray::create());
     }
     
-	JsonString* sss = obj->getValue(L"daaa")->asString();
+    JsonString* sss = obj->getValue(L"daaa")->asString();
     print(sss->getString());
     
-	JsonArray* arr = obj->getValue(L"array")->asArray();
+    JsonArray* arr = obj->getValue(L"array")->asArray();
     arr->add(JsonString::create(L"this is an array item"));
     arr->add(JsonNumber::create(10.4));
     arr->add(JsonString::create(L"a string literal"));
     
-	JsonString* strInArr = arr->get(0)->asString();
+    JsonString* strInArr = arr->get(0)->asString();
     print(strInArr->getString());
     
-	JsonNumber* jn = arr->get(1)->asNumber();
+    JsonNumber* jn = arr->get(1)->asNumber();
     printf("\n%f ", jn->getValue());
 }
 
@@ -60,18 +60,18 @@ int main(int argc, const char * argv[])
     RefPtr<JsonValue> res = parser.parse(source);
     if (!res.isNull())
     {
-		JsonObject* root = res->asObject();
-		JsonNumber* num = root->getValue(L"ww")->asNumber();
+        JsonObject* root = res->asObject();
+        JsonNumber* num = root->getValue(L"ww")->asNumber();
         
         printf("num = %f\n", num->getValue());
         
-		String jss = jsonValueToString(root);
+        String jss = jsonValueToString(root);
         print(jss);
         
         RefPtr<JsonValue> v = parser.parse(jss);
         if (!v.isNull())
         {
-			jss = jsonValueToString(v.get());
+            jss = jsonValueToString(v.get());
             printf("\n");
             print(jss);
             if (v != root)
