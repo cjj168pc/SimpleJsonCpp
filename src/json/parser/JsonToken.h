@@ -49,6 +49,7 @@ public:
     void literal(String chars);
     void valueSeparator();
     void number(int integer, int numberSign, int frac, int fracLength, int exp, int expSign);
+    void number(int integer);
     void trueValue();
     void falseValue();
     void nullValue();
@@ -59,7 +60,9 @@ public:
     Range getRange() const;
     TokenType type() const;
     String data() const;
-    double value() const;
+    double getDouble() const;
+    int getInteger() const;
+    bool isInteger() const;
     ErrorType getErrorType() const;
     
 private:
@@ -69,6 +72,8 @@ private:
     TokenType _type;
     String _str;
     double _number;
+    int _integer;
+    bool _isInt;
     Range _range;
     ErrorType _err;
 };

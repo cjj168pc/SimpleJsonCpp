@@ -16,6 +16,13 @@ PassPtr<JsonNumber> JsonNumber::create(double num)
     return adoptRef(jn);
 }
 
+PassPtr<JsonNumber> JsonNumber::create(int num)
+{
+    JsonNumber* jn = new JsonNumber;
+    jn->setValue(num);
+    return adoptRef(jn);
+}
+
 JsonNumber::JsonNumber()
 {
 }
@@ -31,15 +38,48 @@ JsonValue::ValueType JsonNumber::type() const
 
 void JsonNumber::toString(StringBuilder& target) const
 {
-    target.appendDouble(_value);
+    if (_isInt)
+    {
+        target.appendInt(_ivalue);
+    }
+    else
+    {
+        target.appendDouble(_fvalue);
+    }
 }
 
 void JsonNumber::setValue(double num)
 {
-    _value = num;
+    _fvalue = num;
+    _isInt = false;
 }
 
-double JsonNumber::getValue() const
+void JsonNumber::setValue(int num)
 {
-    return _value;
+    _ivalue = num;
+    _isInt = true;
 }
+
+double JsonNumber::getDouble() const
+{
+    if (_isInt)
+    {
+        return static_cast<double>(_ivalue);
+    }
+    return _fvalue;
+}
+
+int JsonNumber::getInteger() const
+{
+    if (_isInt)
+    {
+        return _ivalue;
+    }
+    return static_cast<int>(_fvalue);
+}
+
+bool JsonNumber::isInteger() const
+{
+    return _isInt;
+}
+

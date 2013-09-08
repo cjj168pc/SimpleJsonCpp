@@ -24,6 +24,18 @@ static inline bool isContainer(JsonValue* context)
         && (context->type() != JsonValue::Null);
 }
 
+static PassPtr<JsonNumber> createNumberFromToken(const JsonToken& token)
+{
+    if (token.isInteger())
+    {
+        return JsonNumber::create(token.getInteger());
+    }
+    else
+    {
+        return JsonNumber::create(token.getDouble());
+    }
+}
+
 JsonValueBuilder::JsonValueBuilder()
     : _mode(InitMode), _err(false)
 {
@@ -280,7 +292,7 @@ void JsonValueBuilder::processNumber(const JsonToken& token)
         JsonValue* context = _path.top();
         assert(context->type() == JsonValue::Object);
         JsonObject* obj = static_cast<JsonObject*>(context);
-        obj->add(_tmpKey, JsonNumber::create(token.value()).get());
+        obj->add(_tmpKey, createNumberFromToken(token));
         _mode = PairSeparatorMode;
     }
     else if (_mode == ElementMode || _mode == ElementOnlyMode)
@@ -288,7 +300,7 @@ void JsonValueBuilder::processNumber(const JsonToken& token)
         JsonValue* context = _path.top();
         assert(context->type() == JsonValue::Array);
         JsonArray* arr = static_cast<JsonArray*>(context);
-        arr->add(JsonNumber::create(token.value()).get());
+        arr->add(createNumberFromToken(token));
         _mode = ElementSeparatorMode;
     }
     else

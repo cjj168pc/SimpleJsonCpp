@@ -39,7 +39,7 @@ void testJsonValues()
     print(strInArr->getString());
     
     JsonNumber* jn = arr->get(1)->asNumber();
-    printf("\n%f ", jn->getValue());
+    printf("\n%f ", jn->getDouble());
 }
 
 void printParseError(JsonParser& parser, String source)
@@ -63,7 +63,7 @@ int main(int argc, const char * argv[])
         JsonObject* root = res->asObject();
         JsonNumber* num = root->getValue(L"ww")->asNumber();
         
-        printf("num = %f\n", num->getValue());
+        printf("num = %f\n", num->getDouble());
         
         String jss = jsonValueToString(root);
         print(jss);

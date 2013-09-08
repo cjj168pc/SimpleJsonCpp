@@ -10,7 +10,7 @@
 
 
 JsonToken::JsonToken()
-    : _type(Uninitialized), _number(0)
+    : _type(Uninitialized), _number(0), _integer(0), _isInt(true)
 {
     _range.begin = -1;
     _range.end = -1;
@@ -62,6 +62,7 @@ void JsonToken::valueSeparator()
 void JsonToken::number(int integer, int numberSign, int frac, int fracLength, int exp, int expSign)
 {
     _type = NumberValue;
+    _isInt = false;
     
     double mantissa = frac;
     while (fracLength--)
@@ -89,6 +90,14 @@ void JsonToken::number(int integer, int numberSign, int frac, int fracLength, in
     }
     
     _number = preRegular;
+}
+
+void JsonToken::number(int num)
+{
+    _type = NumberValue;
+
+    _integer = num;
+    _isInt = true;
 }
 
 void JsonToken::trueValue()
@@ -142,9 +151,19 @@ String JsonToken::data() const
     return _str;
 }
 
-double JsonToken::value() const
+double JsonToken::getDouble() const
 {
     return _number;
+}
+
+int JsonToken::getInteger() const
+{
+    return _integer;
+}
+
+bool JsonToken::isInteger() const
+{
+    return _isInt;
 }
 
 ErrorType JsonToken::getErrorType() const

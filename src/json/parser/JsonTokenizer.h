@@ -54,6 +54,7 @@ private:
     int _fracLength;
     int _exp;
     int _expSign;
+    bool _isInt;
     SourceStreamPreprocessor _preprocesser;
 };
 

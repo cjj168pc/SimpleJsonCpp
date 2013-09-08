@@ -16,18 +16,24 @@ class JsonNumber : public JsonValue
 {
 public:
     static PassPtr<JsonNumber> create(double num);
+    static PassPtr<JsonNumber> create(int num);
     
     virtual ~JsonNumber();
     virtual ValueType type() const;
     virtual void toString(StringBuilder& target) const;
     void setValue(double num);
-    double getValue() const;
+    void setValue(int num);
+    double getDouble() const;
+    int getInteger() const;
+    bool isInteger() const;
     
 protected:
     JsonNumber();
 
 private:
-    double _value;
+    double _fvalue;
+    int _ivalue;
+    bool _isInt;
 };
 
 #endif /* defined(__SimpleJsonCpp__JsonNumber__) */

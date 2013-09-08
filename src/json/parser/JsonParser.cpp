@@ -112,7 +112,7 @@ PassPtr<JsonValue> JsonParser::parse(String source)
 
 bool JsonParser::tokenAvailable(const JsonToken* token) const
 {
-    return token->type() != JsonToken::Error;
+    return token->type() != JsonToken::Error && token->type() != JsonToken::Uninitialized;
 }
 
 void JsonParser::setError(int pos, ErrorType code)

@@ -66,7 +66,7 @@ static inline bool parseHexUnicode(SourceStream& input, wchar_t& code)
 JsonTokenizer::JsonTokenizer()
     : _state(DataState), _token(0), _integer(0),
     _frac(0), _exp(0), _fracLength(0), _numberSign(1),
-    _expSign(1)
+    _expSign(1), _isInt(true)
 {
 }
 
@@ -108,6 +108,7 @@ void JsonTokenizer::beginNumber(int digit, int sign)
     _exp = 0;
     _numberSign = sign;
     _expSign = 1;
+    _isInt = true;
 }
 
 bool JsonTokenizer::nextToken(SourceStream& input, JsonToken& token)
@@ -310,6 +311,7 @@ bool JsonTokenizer::nextToken(SourceStream& input, JsonToken& token)
             }
             else
             {
+                _isInt = true;
                 JSON_RECONSUME_IN(NumberEndState);
             }
         }
@@ -332,6 +334,7 @@ bool JsonTokenizer::nextToken(SourceStream& input, JsonToken& token)
             }
             else
             {
+                _isInt = true;
                 JSON_RECONSUME_IN(NumberEndState);
             }
         }
@@ -385,6 +388,7 @@ bool JsonTokenizer::nextToken(SourceStream& input, JsonToken& token)
             }
             else
             {
+                _isInt = false;
                 JSON_RECONSUME_IN(NumberEndState);
             }
         }
@@ -423,6 +427,7 @@ bool JsonTokenizer::nextToken(SourceStream& input, JsonToken& token)
             }
             else
             {
+                _isInt = false;
                 JSON_RECONSUME_IN(NumberEndState);
             }
         }
@@ -432,14 +437,30 @@ bool JsonTokenizer::nextToken(SourceStream& input, JsonToken& token)
         {
             if (isWhiteSpace(cc))
             {
-                token.number(_integer, _numberSign, _frac, _fracLength, _exp, _expSign);
-                return endToken(input, DataState);
+                if (_isInt)
+                {
+                    token.number(_integer * _numberSign);
+                    return endToken(input, DataState);
+                }
+                else
+                {
+                    token.number(_integer, _numberSign, _frac, _fracLength, _exp, _expSign);
+                    return endToken(input, DataState);
+                }
             }
             else if (cc == '{' || cc == '}' || cc == '['
                      || cc == ']' || cc == ',' || cc == ':' || cc == '\"')
             {
-                token.number(_integer, _numberSign, _frac, _fracLength, _exp, _expSign);
-                return endTokenNoConsume(input, DataState);
+                if (_isInt)
+                {
+                    token.number(_integer * _numberSign);
+                    return endTokenNoConsume(input, DataState);
+                }
+                else
+                {
+                    token.number(_integer, _numberSign, _frac, _fracLength, _exp, _expSign);
+                    return endTokenNoConsume(input, DataState);
+                }
             }
             else
             {
