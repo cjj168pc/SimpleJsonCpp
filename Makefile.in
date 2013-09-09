@@ -80,8 +80,7 @@ host_triplet = @host@
 subdir = .
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(am__configure_deps) ChangeLog \
-	compile config.guess config.sub depcomp install-sh missing \
-	ltmain.sh
+	compile config.guess config.sub install-sh missing ltmain.sh
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -773,14 +772,6 @@ uninstall-am:
 	mostlyclean mostlyclean-generic mostlyclean-libtool pdf pdf-am \
 	ps ps-am tags tags-am uninstall uninstall-am
 
-
-#bin_PROGRAMS = example
-
-#example_SOURCES = example.cpp
-
-#example_LDADD = -lsimplejsoncpp
-
-#AM_CPPFLAGS = -Isrc -Isrc/util -Isrc/json/entity -Isrc/json/parser
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

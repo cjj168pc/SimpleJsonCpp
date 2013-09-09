@@ -119,8 +119,26 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)" \
 	"$(DESTDIR)$(libsimplejsoncpp_la_includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
-libsimplejsoncpp_la_DEPENDENCIES =
-am_libsimplejsoncpp_la_OBJECTS = libsimplejsoncpp_la-SimpleJson.lo
+libsimplejsoncpp_la_LIBADD =
+am__objects_1 =
+am__objects_2 = libsimplejsoncpp_la-JsonArray.lo \
+	libsimplejsoncpp_la-JsonBoolean.lo \
+	libsimplejsoncpp_la-JsonNull.lo \
+	libsimplejsoncpp_la-JsonNumber.lo \
+	libsimplejsoncpp_la-JsonObject.lo \
+	libsimplejsoncpp_la-JsonString.lo \
+	libsimplejsoncpp_la-JsonValue.lo \
+	libsimplejsoncpp_la-JsonParser.lo \
+	libsimplejsoncpp_la-JsonToken.lo \
+	libsimplejsoncpp_la-JsonTokenizer.lo \
+	libsimplejsoncpp_la-JsonValueBuilder.lo \
+	libsimplejsoncpp_la-SourceStream.lo \
+	libsimplejsoncpp_la-SourceStreamPreprocessor.lo \
+	libsimplejsoncpp_la-MyString.lo \
+	libsimplejsoncpp_la-StringBuffer.lo \
+	libsimplejsoncpp_la-StringBuilder.lo \
+	libsimplejsoncpp_la-StringImpl.lo
+am_libsimplejsoncpp_la_OBJECTS = $(am__objects_1) $(am__objects_2)
 libsimplejsoncpp_la_OBJECTS = $(am_libsimplejsoncpp_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -184,28 +202,12 @@ am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(libsimplejsoncpp_la_SOURCES)
 DIST_SOURCES = $(libsimplejsoncpp_la_SOURCES)
-RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
-	ctags-recursive dvi-recursive html-recursive info-recursive \
-	install-data-recursive install-dvi-recursive \
-	install-exec-recursive install-html-recursive \
-	install-info-recursive install-pdf-recursive \
-	install-ps-recursive install-recursive installcheck-recursive \
-	installdirs-recursive pdf-recursive ps-recursive \
-	tags-recursive uninstall-recursive
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
 HEADERS = $(libsimplejsoncpp_la_include_HEADERS)
-RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
-  distclean-recursive maintainer-clean-recursive
-am__recursive_targets = \
-  $(RECURSIVE_TARGETS) \
-  $(RECURSIVE_CLEAN_TARGETS) \
-  $(am__extra_recursive_targets)
-AM_RECURSIVE_TARGETS = $(am__recursive_targets:-recursive=) TAGS CTAGS \
-	distdir
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -225,33 +227,7 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = $(SUBDIRS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-am__relativize = \
-  dir0=`pwd`; \
-  sed_first='s,^\([^/]*\)/.*$$,\1,'; \
-  sed_rest='s,^[^/]*/*,,'; \
-  sed_last='s,^.*/\([^/]*\)$$,\1,'; \
-  sed_butlast='s,/*[^/]*$$,,'; \
-  while test -n "$$dir1"; do \
-    first=`echo "$$dir1" | sed -e "$$sed_first"`; \
-    if test "$$first" != "."; then \
-      if test "$$first" = ".."; then \
-        dir2=`echo "$$dir0" | sed -e "$$sed_last"`/"$$dir2"; \
-        dir0=`echo "$$dir0" | sed -e "$$sed_butlast"`; \
-      else \
-        first2=`echo "$$dir2" | sed -e "$$sed_first"`; \
-        if test "$$first2" = "$$first"; then \
-          dir2=`echo "$$dir2" | sed -e "$$sed_rest"`; \
-        else \
-          dir2="../$$dir2"; \
-        fi; \
-        dir0="$$dir0"/"$$first"; \
-      fi; \
-    fi; \
-    dir1=`echo "$$dir1" | sed -e "$$sed_rest"`; \
-  done; \
-  reldir="$$dir2"
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
@@ -371,23 +347,62 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AUTOMAKE_OPTIONS = foreign
-SUBDIRS = util json/entity json/parser
-lib_LTLIBRARIES = libsimplejsoncpp.la
-libsimplejsoncpp_la_SOURCES = SimpleJson.h SimpleJson.cpp
-libsimplejsoncpp_la_LIBADD = -ljsonparser
-libsimplejsoncpp_la_LDFLAGS = -version-info 1:0:0 --whole-archive -Lutil -Ljson/entity -Ljson/parser
-libsimplejsoncpp_la_CPPFLAGS = -Iutil -Ijson/entity -Ijson/parser -fPIC 
-libsimplejsoncpp_la_includedir = $(includedir)/simplejsoncpp
-libsimplejsoncpp_la_include_HEADERS = SimpleJson.h util/MyString.h util/PassPtr.h util/RefCounted.h util/RefPtr.h \
-									  util/StringBuilder.h json/entity/JsonArray.h json/entity/JsonBoolean.h \
-									  json/entity/JsonNull.h json/entity/JsonNumber.h json/entity/JsonObject.h \
-									  json/entity/JsonString.h json/entity/JsonValue.h json/parser/JsonError.h \
-									  json/parser/JsonParser.h json/parser/JsonToken.h json/parser/JsonTokenizer.h \
-									  json/parser/JsonValueBuilder.h json/parser/SourceStream.h \
-									  json/parser/SourceStreamPreprocessor.h json/parser/TokenizerInlines.h
+all_headers = JsonArray.h \
+        JsonBoolean.h \
+        JsonNull.h \
+        JsonNumber.h \
+        JsonObject.h \
+        JsonString.h \
+        JsonValue.h \
+        JsonError.h \
+        JsonParser.h \
+        JsonToken.h \
+        JsonTokenizer.h \
+        JsonValueBuilder.h \
+        SourceStream.h \
+        SourceStreamPreprocessor.h \
+        TokenizerInlines.h \
+        MyString.h \
+        PassPtr.h \
+        RefCounted.h \
+        RefPtr.h \
+        StringBuffer.h \
+        StringBuilder.h \
+        StringImpl.h
 
-all: all-recursive
+all_sources = JsonArray.cpp \
+        JsonBoolean.cpp \
+        JsonNull.cpp \
+        JsonNumber.cpp \
+        JsonObject.cpp \
+        JsonString.cpp \
+        JsonValue.cpp \
+        JsonParser.cpp \
+        JsonToken.cpp \
+        JsonTokenizer.cpp \
+        JsonValueBuilder.cpp \
+        SourceStream.cpp \
+        SourceStreamPreprocessor.cpp \
+        MyString.cpp \
+        StringBuffer.cpp \
+        StringBuilder.cpp \
+        StringImpl.cpp
+
+AUTOMAKE_OPTIONS = foreign
+lib_LTLIBRARIES = libsimplejsoncpp.la
+libsimplejsoncpp_la_SOURCES = $(all_headers) $(all_sources)
+libsimplejsoncpp_la_LDFLAGS = -version-info 1:0:0
+libsimplejsoncpp_la_CPPFLAGS = -fPIC 
+libsimplejsoncpp_la_includedir = $(includedir)/simplejsoncpp
+libsimplejsoncpp_la_include_HEADERS = SimpleJson.h MyString.h PassPtr.h RefCounted.h RefPtr.h \
+									  StringBuilder.h JsonArray.h JsonBoolean.h \
+									  JsonNull.h JsonNumber.h JsonObject.h \
+									  JsonString.h JsonValue.h JsonError.h \
+									  JsonParser.h JsonToken.h JsonTokenizer.h \
+									  JsonValueBuilder.h SourceStream.h \
+									  SourceStreamPreprocessor.h TokenizerInlines.h
+
+all: all-am
 
 .SUFFIXES:
 .SUFFIXES: .cpp .lo .o .obj
@@ -466,7 +481,23 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-SimpleJson.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-JsonArray.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-JsonBoolean.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-JsonNull.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-JsonNumber.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-JsonObject.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-JsonParser.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-JsonString.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-JsonToken.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-JsonTokenizer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-JsonValue.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-JsonValueBuilder.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-MyString.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-SourceStream.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-SourceStreamPreprocessor.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-StringBuffer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-StringBuilder.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-StringImpl.Plo@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -489,12 +520,124 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
-libsimplejsoncpp_la-SimpleJson.lo: SimpleJson.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-SimpleJson.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-SimpleJson.Tpo -c -o libsimplejsoncpp_la-SimpleJson.lo `test -f 'SimpleJson.cpp' || echo '$(srcdir)/'`SimpleJson.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-SimpleJson.Tpo $(DEPDIR)/libsimplejsoncpp_la-SimpleJson.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='SimpleJson.cpp' object='libsimplejsoncpp_la-SimpleJson.lo' libtool=yes @AMDEPBACKSLASH@
+libsimplejsoncpp_la-JsonArray.lo: JsonArray.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-JsonArray.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-JsonArray.Tpo -c -o libsimplejsoncpp_la-JsonArray.lo `test -f 'JsonArray.cpp' || echo '$(srcdir)/'`JsonArray.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-JsonArray.Tpo $(DEPDIR)/libsimplejsoncpp_la-JsonArray.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='JsonArray.cpp' object='libsimplejsoncpp_la-JsonArray.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-SimpleJson.lo `test -f 'SimpleJson.cpp' || echo '$(srcdir)/'`SimpleJson.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-JsonArray.lo `test -f 'JsonArray.cpp' || echo '$(srcdir)/'`JsonArray.cpp
+
+libsimplejsoncpp_la-JsonBoolean.lo: JsonBoolean.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-JsonBoolean.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-JsonBoolean.Tpo -c -o libsimplejsoncpp_la-JsonBoolean.lo `test -f 'JsonBoolean.cpp' || echo '$(srcdir)/'`JsonBoolean.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-JsonBoolean.Tpo $(DEPDIR)/libsimplejsoncpp_la-JsonBoolean.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='JsonBoolean.cpp' object='libsimplejsoncpp_la-JsonBoolean.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-JsonBoolean.lo `test -f 'JsonBoolean.cpp' || echo '$(srcdir)/'`JsonBoolean.cpp
+
+libsimplejsoncpp_la-JsonNull.lo: JsonNull.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-JsonNull.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-JsonNull.Tpo -c -o libsimplejsoncpp_la-JsonNull.lo `test -f 'JsonNull.cpp' || echo '$(srcdir)/'`JsonNull.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-JsonNull.Tpo $(DEPDIR)/libsimplejsoncpp_la-JsonNull.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='JsonNull.cpp' object='libsimplejsoncpp_la-JsonNull.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-JsonNull.lo `test -f 'JsonNull.cpp' || echo '$(srcdir)/'`JsonNull.cpp
+
+libsimplejsoncpp_la-JsonNumber.lo: JsonNumber.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-JsonNumber.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-JsonNumber.Tpo -c -o libsimplejsoncpp_la-JsonNumber.lo `test -f 'JsonNumber.cpp' || echo '$(srcdir)/'`JsonNumber.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-JsonNumber.Tpo $(DEPDIR)/libsimplejsoncpp_la-JsonNumber.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='JsonNumber.cpp' object='libsimplejsoncpp_la-JsonNumber.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-JsonNumber.lo `test -f 'JsonNumber.cpp' || echo '$(srcdir)/'`JsonNumber.cpp
+
+libsimplejsoncpp_la-JsonObject.lo: JsonObject.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-JsonObject.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-JsonObject.Tpo -c -o libsimplejsoncpp_la-JsonObject.lo `test -f 'JsonObject.cpp' || echo '$(srcdir)/'`JsonObject.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-JsonObject.Tpo $(DEPDIR)/libsimplejsoncpp_la-JsonObject.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='JsonObject.cpp' object='libsimplejsoncpp_la-JsonObject.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-JsonObject.lo `test -f 'JsonObject.cpp' || echo '$(srcdir)/'`JsonObject.cpp
+
+libsimplejsoncpp_la-JsonString.lo: JsonString.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-JsonString.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-JsonString.Tpo -c -o libsimplejsoncpp_la-JsonString.lo `test -f 'JsonString.cpp' || echo '$(srcdir)/'`JsonString.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-JsonString.Tpo $(DEPDIR)/libsimplejsoncpp_la-JsonString.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='JsonString.cpp' object='libsimplejsoncpp_la-JsonString.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-JsonString.lo `test -f 'JsonString.cpp' || echo '$(srcdir)/'`JsonString.cpp
+
+libsimplejsoncpp_la-JsonValue.lo: JsonValue.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-JsonValue.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-JsonValue.Tpo -c -o libsimplejsoncpp_la-JsonValue.lo `test -f 'JsonValue.cpp' || echo '$(srcdir)/'`JsonValue.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-JsonValue.Tpo $(DEPDIR)/libsimplejsoncpp_la-JsonValue.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='JsonValue.cpp' object='libsimplejsoncpp_la-JsonValue.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-JsonValue.lo `test -f 'JsonValue.cpp' || echo '$(srcdir)/'`JsonValue.cpp
+
+libsimplejsoncpp_la-JsonParser.lo: JsonParser.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-JsonParser.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-JsonParser.Tpo -c -o libsimplejsoncpp_la-JsonParser.lo `test -f 'JsonParser.cpp' || echo '$(srcdir)/'`JsonParser.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-JsonParser.Tpo $(DEPDIR)/libsimplejsoncpp_la-JsonParser.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='JsonParser.cpp' object='libsimplejsoncpp_la-JsonParser.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-JsonParser.lo `test -f 'JsonParser.cpp' || echo '$(srcdir)/'`JsonParser.cpp
+
+libsimplejsoncpp_la-JsonToken.lo: JsonToken.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-JsonToken.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-JsonToken.Tpo -c -o libsimplejsoncpp_la-JsonToken.lo `test -f 'JsonToken.cpp' || echo '$(srcdir)/'`JsonToken.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-JsonToken.Tpo $(DEPDIR)/libsimplejsoncpp_la-JsonToken.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='JsonToken.cpp' object='libsimplejsoncpp_la-JsonToken.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-JsonToken.lo `test -f 'JsonToken.cpp' || echo '$(srcdir)/'`JsonToken.cpp
+
+libsimplejsoncpp_la-JsonTokenizer.lo: JsonTokenizer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-JsonTokenizer.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-JsonTokenizer.Tpo -c -o libsimplejsoncpp_la-JsonTokenizer.lo `test -f 'JsonTokenizer.cpp' || echo '$(srcdir)/'`JsonTokenizer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-JsonTokenizer.Tpo $(DEPDIR)/libsimplejsoncpp_la-JsonTokenizer.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='JsonTokenizer.cpp' object='libsimplejsoncpp_la-JsonTokenizer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-JsonTokenizer.lo `test -f 'JsonTokenizer.cpp' || echo '$(srcdir)/'`JsonTokenizer.cpp
+
+libsimplejsoncpp_la-JsonValueBuilder.lo: JsonValueBuilder.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-JsonValueBuilder.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-JsonValueBuilder.Tpo -c -o libsimplejsoncpp_la-JsonValueBuilder.lo `test -f 'JsonValueBuilder.cpp' || echo '$(srcdir)/'`JsonValueBuilder.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-JsonValueBuilder.Tpo $(DEPDIR)/libsimplejsoncpp_la-JsonValueBuilder.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='JsonValueBuilder.cpp' object='libsimplejsoncpp_la-JsonValueBuilder.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-JsonValueBuilder.lo `test -f 'JsonValueBuilder.cpp' || echo '$(srcdir)/'`JsonValueBuilder.cpp
+
+libsimplejsoncpp_la-SourceStream.lo: SourceStream.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-SourceStream.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-SourceStream.Tpo -c -o libsimplejsoncpp_la-SourceStream.lo `test -f 'SourceStream.cpp' || echo '$(srcdir)/'`SourceStream.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-SourceStream.Tpo $(DEPDIR)/libsimplejsoncpp_la-SourceStream.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='SourceStream.cpp' object='libsimplejsoncpp_la-SourceStream.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-SourceStream.lo `test -f 'SourceStream.cpp' || echo '$(srcdir)/'`SourceStream.cpp
+
+libsimplejsoncpp_la-SourceStreamPreprocessor.lo: SourceStreamPreprocessor.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-SourceStreamPreprocessor.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-SourceStreamPreprocessor.Tpo -c -o libsimplejsoncpp_la-SourceStreamPreprocessor.lo `test -f 'SourceStreamPreprocessor.cpp' || echo '$(srcdir)/'`SourceStreamPreprocessor.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-SourceStreamPreprocessor.Tpo $(DEPDIR)/libsimplejsoncpp_la-SourceStreamPreprocessor.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='SourceStreamPreprocessor.cpp' object='libsimplejsoncpp_la-SourceStreamPreprocessor.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-SourceStreamPreprocessor.lo `test -f 'SourceStreamPreprocessor.cpp' || echo '$(srcdir)/'`SourceStreamPreprocessor.cpp
+
+libsimplejsoncpp_la-MyString.lo: MyString.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-MyString.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-MyString.Tpo -c -o libsimplejsoncpp_la-MyString.lo `test -f 'MyString.cpp' || echo '$(srcdir)/'`MyString.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-MyString.Tpo $(DEPDIR)/libsimplejsoncpp_la-MyString.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='MyString.cpp' object='libsimplejsoncpp_la-MyString.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-MyString.lo `test -f 'MyString.cpp' || echo '$(srcdir)/'`MyString.cpp
+
+libsimplejsoncpp_la-StringBuffer.lo: StringBuffer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-StringBuffer.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-StringBuffer.Tpo -c -o libsimplejsoncpp_la-StringBuffer.lo `test -f 'StringBuffer.cpp' || echo '$(srcdir)/'`StringBuffer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-StringBuffer.Tpo $(DEPDIR)/libsimplejsoncpp_la-StringBuffer.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='StringBuffer.cpp' object='libsimplejsoncpp_la-StringBuffer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-StringBuffer.lo `test -f 'StringBuffer.cpp' || echo '$(srcdir)/'`StringBuffer.cpp
+
+libsimplejsoncpp_la-StringBuilder.lo: StringBuilder.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-StringBuilder.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-StringBuilder.Tpo -c -o libsimplejsoncpp_la-StringBuilder.lo `test -f 'StringBuilder.cpp' || echo '$(srcdir)/'`StringBuilder.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-StringBuilder.Tpo $(DEPDIR)/libsimplejsoncpp_la-StringBuilder.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='StringBuilder.cpp' object='libsimplejsoncpp_la-StringBuilder.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-StringBuilder.lo `test -f 'StringBuilder.cpp' || echo '$(srcdir)/'`StringBuilder.cpp
+
+libsimplejsoncpp_la-StringImpl.lo: StringImpl.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-StringImpl.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-StringImpl.Tpo -c -o libsimplejsoncpp_la-StringImpl.lo `test -f 'StringImpl.cpp' || echo '$(srcdir)/'`StringImpl.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-StringImpl.Tpo $(DEPDIR)/libsimplejsoncpp_la-StringImpl.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='StringImpl.cpp' object='libsimplejsoncpp_la-StringImpl.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-StringImpl.lo `test -f 'StringImpl.cpp' || echo '$(srcdir)/'`StringImpl.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -523,61 +666,14 @@ uninstall-libsimplejsoncpp_la_includeHEADERS:
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(libsimplejsoncpp_la_includedir)'; $(am__uninstall_files_from_dir)
 
-# This directory's subdirectories are mostly independent; you can cd
-# into them and run 'make' without going through this Makefile.
-# To change the values of 'make' variables: instead of editing Makefiles,
-# (1) if the variable is set in 'config.status', edit 'config.status'
-#     (which will cause the Makefiles to be regenerated when you run 'make');
-# (2) otherwise, pass the desired values on the 'make' command line.
-$(am__recursive_targets):
-	@fail=; \
-	if $(am__make_keepgoing); then \
-	  failcom='fail=yes'; \
-	else \
-	  failcom='exit 1'; \
-	fi; \
-	dot_seen=no; \
-	target=`echo $@ | sed s/-recursive//`; \
-	case "$@" in \
-	  distclean-* | maintainer-clean-*) list='$(DIST_SUBDIRS)' ;; \
-	  *) list='$(SUBDIRS)' ;; \
-	esac; \
-	for subdir in $$list; do \
-	  echo "Making $$target in $$subdir"; \
-	  if test "$$subdir" = "."; then \
-	    dot_seen=yes; \
-	    local_target="$$target-am"; \
-	  else \
-	    local_target="$$target"; \
-	  fi; \
-	  ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \
-	  || eval $$failcom; \
-	done; \
-	if test "$$dot_seen" = "no"; then \
-	  $(MAKE) $(AM_MAKEFLAGS) "$$target-am" || exit 1; \
-	fi; test -z "$$fail"
-
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
-tags: tags-recursive
+tags: tags-am
 TAGS: tags
 
 tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
 	set x; \
 	here=`pwd`; \
-	if ($(ETAGS) --etags-include --version) >/dev/null 2>&1; then \
-	  include_option=--etags-include; \
-	  empty_fix=.; \
-	else \
-	  include_option=--include; \
-	  empty_fix=; \
-	fi; \
-	list='$(SUBDIRS)'; for subdir in $$list; do \
-	  if test "$$subdir" = .; then :; else \
-	    test ! -f $$subdir/TAGS || \
-	      set "$$@" "$$include_option=$$here/$$subdir/TAGS"; \
-	  fi; \
-	done; \
 	$(am__define_uniq_tagged_files); \
 	shift; \
 	if test -z "$(ETAGS_ARGS)$$*$$unique"; then :; else \
@@ -590,7 +686,7 @@ tags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
 	      $$unique; \
 	  fi; \
 	fi
-ctags: ctags-recursive
+ctags: ctags-am
 
 CTAGS: ctags
 ctags-am: $(TAGS_DEPENDENCIES) $(am__tagged_files)
@@ -603,7 +699,7 @@ GTAGS:
 	here=`$(am__cd) $(top_builddir) && pwd` \
 	  && $(am__cd) $(top_srcdir) \
 	  && gtags -i $(GTAGS_ARGS) "$$here"
-cscopelist: cscopelist-recursive
+cscopelist: cscopelist-am
 
 cscopelist-am: $(am__tagged_files)
 	list='$(am__tagged_files)'; \
@@ -652,48 +748,22 @@ distdir: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
-	@list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
-	  if test "$$subdir" = .; then :; else \
-	    $(am__make_dryrun) \
-	      || test -d "$(distdir)/$$subdir" \
-	      || $(MKDIR_P) "$(distdir)/$$subdir" \
-	      || exit 1; \
-	    dir1=$$subdir; dir2="$(distdir)/$$subdir"; \
-	    $(am__relativize); \
-	    new_distdir=$$reldir; \
-	    dir1=$$subdir; dir2="$(top_distdir)"; \
-	    $(am__relativize); \
-	    new_top_distdir=$$reldir; \
-	    echo " (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) top_distdir="$$new_top_distdir" distdir="$$new_distdir" \\"; \
-	    echo "     am__remove_distdir=: am__skip_length_check=: am__skip_mode_fix=: distdir)"; \
-	    ($(am__cd) $$subdir && \
-	      $(MAKE) $(AM_MAKEFLAGS) \
-	        top_distdir="$$new_top_distdir" \
-	        distdir="$$new_distdir" \
-		am__remove_distdir=: \
-		am__skip_length_check=: \
-		am__skip_mode_fix=: \
-	        distdir) \
-	      || exit 1; \
-	  fi; \
-	done
 check-am: all-am
-check: check-recursive
+check: check-am
 all-am: Makefile $(LTLIBRARIES) $(HEADERS)
-installdirs: installdirs-recursive
-installdirs-am:
+installdirs:
 	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libsimplejsoncpp_la_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-recursive
-install-exec: install-exec-recursive
-install-data: install-data-recursive
-uninstall: uninstall-recursive
+install: install-am
+install-exec: install-exec-am
+install-data: install-data-am
+uninstall: uninstall-am
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 
-installcheck: installcheck-recursive
+installcheck: installcheck-am
 install-strip:
 	if test -z '$(STRIP)'; then \
 	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
@@ -715,96 +785,95 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean: clean-recursive
+clean: clean-am
 
 clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
-distclean: distclean-recursive
+distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
 
-dvi: dvi-recursive
+dvi: dvi-am
 
 dvi-am:
 
-html: html-recursive
+html: html-am
 
 html-am:
 
-info: info-recursive
+info: info-am
 
 info-am:
 
 install-data-am: install-libsimplejsoncpp_la_includeHEADERS
 
-install-dvi: install-dvi-recursive
+install-dvi: install-dvi-am
 
 install-dvi-am:
 
 install-exec-am: install-libLTLIBRARIES
 
-install-html: install-html-recursive
+install-html: install-html-am
 
 install-html-am:
 
-install-info: install-info-recursive
+install-info: install-info-am
 
 install-info-am:
 
 install-man:
 
-install-pdf: install-pdf-recursive
+install-pdf: install-pdf-am
 
 install-pdf-am:
 
-install-ps: install-ps-recursive
+install-ps: install-ps-am
 
 install-ps-am:
 
 installcheck-am:
 
-maintainer-clean: maintainer-clean-recursive
+maintainer-clean: maintainer-clean-am
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
-mostlyclean: mostlyclean-recursive
+mostlyclean: mostlyclean-am
 
 mostlyclean-am: mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool
 
-pdf: pdf-recursive
+pdf: pdf-am
 
 pdf-am:
 
-ps: ps-recursive
+ps: ps-am
 
 ps-am:
 
 uninstall-am: uninstall-libLTLIBRARIES \
 	uninstall-libsimplejsoncpp_la_includeHEADERS
 
-.MAKE: $(am__recursive_targets) install-am install-strip
+.MAKE: install-am install-strip
 
-.PHONY: $(am__recursive_targets) CTAGS GTAGS TAGS all all-am check \
-	check-am clean clean-generic clean-libLTLIBRARIES \
-	clean-libtool cscopelist-am ctags ctags-am distclean \
-	distclean-compile distclean-generic distclean-libtool \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am \
-	install-libLTLIBRARIES \
+.PHONY: CTAGS GTAGS TAGS all all-am check check-am clean clean-generic \
+	clean-libLTLIBRARIES clean-libtool cscopelist-am ctags \
+	ctags-am distclean distclean-compile distclean-generic \
+	distclean-libtool distclean-tags distdir dvi dvi-am html \
+	html-am info info-am install install-am install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-libLTLIBRARIES \
 	install-libsimplejsoncpp_la_includeHEADERS install-man \
 	install-pdf install-pdf-am install-ps install-ps-am \
 	install-strip installcheck installcheck-am installdirs \
-	installdirs-am maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am uninstall-libLTLIBRARIES \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags tags-am uninstall uninstall-am \
+	uninstall-libLTLIBRARIES \
 	uninstall-libsimplejsoncpp_la_includeHEADERS
 
 

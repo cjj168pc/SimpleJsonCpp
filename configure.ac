@@ -23,8 +23,4 @@ AC_TYPE_SIZE_T
 # Checks for library functions.
 AC_FUNC_ERROR_AT_LINE
 
-AC_OUTPUT([Makefile
-		src/Makefile
-		src/util/Makefile
-		src/json/entity/Makefile
-		src/json/parser/Makefile])
+AC_OUTPUT([Makefile src/Makefile])
