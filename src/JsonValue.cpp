@@ -7,6 +7,7 @@
 //
 
 #include "JsonValue.h"
+#include "JsonError.h"
 
 String JsonValue::toString() const
 {

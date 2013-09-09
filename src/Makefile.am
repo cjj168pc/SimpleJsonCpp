@@ -19,7 +19,8 @@ all_headers = JsonArray.h \
         RefPtr.h \
         StringBuffer.h \
         StringBuilder.h \
-        StringImpl.h
+        StringImpl.h \
+        ValueVisitor.h
 
 all_sources = JsonArray.cpp \
         JsonBoolean.cpp \
@@ -37,7 +38,8 @@ all_sources = JsonArray.cpp \
         MyString.cpp \
         StringBuffer.cpp \
         StringBuilder.cpp \
-        StringImpl.cpp
+        StringImpl.cpp \
+        ValueVisitor.cpp
 
 AUTOMAKE_OPTIONS = foreign
 

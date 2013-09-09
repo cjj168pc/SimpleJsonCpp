@@ -137,7 +137,8 @@ am__objects_2 = libsimplejsoncpp_la-JsonArray.lo \
 	libsimplejsoncpp_la-MyString.lo \
 	libsimplejsoncpp_la-StringBuffer.lo \
 	libsimplejsoncpp_la-StringBuilder.lo \
-	libsimplejsoncpp_la-StringImpl.lo
+	libsimplejsoncpp_la-StringImpl.lo \
+	libsimplejsoncpp_la-ValueVisitor.lo
 am_libsimplejsoncpp_la_OBJECTS = $(am__objects_1) $(am__objects_2)
 libsimplejsoncpp_la_OBJECTS = $(am_libsimplejsoncpp_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -368,7 +369,8 @@ all_headers = JsonArray.h \
         RefPtr.h \
         StringBuffer.h \
         StringBuilder.h \
-        StringImpl.h
+        StringImpl.h \
+        ValueVisitor.h
 
 all_sources = JsonArray.cpp \
         JsonBoolean.cpp \
@@ -386,7 +388,8 @@ all_sources = JsonArray.cpp \
         MyString.cpp \
         StringBuffer.cpp \
         StringBuilder.cpp \
-        StringImpl.cpp
+        StringImpl.cpp \
+        ValueVisitor.cpp
 
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libsimplejsoncpp.la
@@ -498,6 +501,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-StringBuffer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-StringBuilder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-StringImpl.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsimplejsoncpp_la-ValueVisitor.Plo@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -638,6 +642,13 @@ libsimplejsoncpp_la-StringImpl.lo: StringImpl.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='StringImpl.cpp' object='libsimplejsoncpp_la-StringImpl.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-StringImpl.lo `test -f 'StringImpl.cpp' || echo '$(srcdir)/'`StringImpl.cpp
+
+libsimplejsoncpp_la-ValueVisitor.lo: ValueVisitor.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsimplejsoncpp_la-ValueVisitor.lo -MD -MP -MF $(DEPDIR)/libsimplejsoncpp_la-ValueVisitor.Tpo -c -o libsimplejsoncpp_la-ValueVisitor.lo `test -f 'ValueVisitor.cpp' || echo '$(srcdir)/'`ValueVisitor.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libsimplejsoncpp_la-ValueVisitor.Tpo $(DEPDIR)/libsimplejsoncpp_la-ValueVisitor.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='ValueVisitor.cpp' object='libsimplejsoncpp_la-ValueVisitor.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsimplejsoncpp_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsimplejsoncpp_la-ValueVisitor.lo `test -f 'ValueVisitor.cpp' || echo '$(srcdir)/'`ValueVisitor.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo

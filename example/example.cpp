@@ -39,7 +39,10 @@ void testJsonValues()
     print(strInArr->getString());
     
     JsonNumber* jn = arr->get(1)->asNumber();
-    printf("\n%f ", jn->getDouble());
+    printf("\n%f\n ", jn->getDouble());
+    
+    print(obj->toString());
+    printf("\n");
 }
 
 void printParseError(JsonParser& parser, String source)
@@ -51,7 +54,7 @@ void printParseError(JsonParser& parser, String source)
     printf("error No.%d %ls\n at %d (%ls)", err.code, msg.c_str(), err.pos, em.c_str());
 }
 
-int main(int argc, const char * argv[])
+void testJsonParser()
 {
     JsonParser parser;
     
@@ -88,6 +91,13 @@ int main(int argc, const char * argv[])
     {
         printParseError(parser, source);
     }
-    
+}
+
+int main(int argc, const char * argv[])
+{
+    testJsonValues();
+
+    testJsonParser();
+
     return 0;
 }
