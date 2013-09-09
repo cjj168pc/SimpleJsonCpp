@@ -29,7 +29,7 @@ JsonValue::ValueType JsonBoolean::type() const
     return JsonValue::Boolean;
 }
 
-void JsonBoolean::toString(StringBuilder& target) const
+void JsonBoolean::appendToString(StringBuilder& target) const
 {
     static String strTrue = L"true";
     static String strFalse = L"false";

@@ -15,7 +15,7 @@ PassPtr<JsonNull> JsonNull::create()
     return adoptRef(jn);
 }
 
-void JsonNull::toString(StringBuilder& target) const
+void JsonNull::appendToString(StringBuilder& target) const
 {
     static String strNull = L"null";
     target.append(strNull);

@@ -29,7 +29,7 @@ JsonObject::ValueType JsonObject::type() const
     return JsonValue::Object;
 }
 
-void JsonObject::toString(StringBuilder& target) const
+void JsonObject::appendToString(StringBuilder& target) const
 {
     target.append('{');
     bool first = true;
@@ -45,7 +45,7 @@ void JsonObject::toString(StringBuilder& target) const
         }
         JsonString::appendReferencedString(target, (*it).first);
         target.append(':');
-        (*it).second->toString(target);
+        (*it).second->appendToString(target);
     }
     target.append('}');
 }

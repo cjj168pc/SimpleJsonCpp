@@ -92,7 +92,7 @@ JsonValue::ValueType JsonString::type() const
     return JsonValue::Literal;
 }
 
-void JsonString::toString(StringBuilder& target) const
+void JsonString::appendToString(StringBuilder& target) const
 {
     appendReferencedString(target, _str);
 }

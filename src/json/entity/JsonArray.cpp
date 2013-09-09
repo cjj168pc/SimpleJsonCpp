@@ -28,7 +28,7 @@ JsonValue::ValueType JsonArray::type() const
     return JsonValue::Array;
 }
 
-void JsonArray::toString(StringBuilder& target) const
+void JsonArray::appendToString(StringBuilder& target) const
 {
     target.append('[');
     bool first = true;
@@ -42,7 +42,7 @@ void JsonArray::toString(StringBuilder& target) const
         {
             target.append(',');
         }
-        (*it)->toString(target);
+        (*it)->appendToString(target);
     }
     target.append(']');
 }

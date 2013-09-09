@@ -21,7 +21,7 @@ public:
     
     virtual ~JsonArray();
     virtual ValueType type() const;
-    virtual void toString(StringBuilder& target) const;
+    virtual void appendToString(StringBuilder& target) const;
     void add(JsonValue* value);
 	void add(RefPtr<JsonValue> value);
     JsonValue* get(int index) const;

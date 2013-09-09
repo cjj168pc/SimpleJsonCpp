@@ -19,7 +19,7 @@ public:
     
     virtual ~JsonBoolean();
     virtual ValueType type() const;
-    virtual void toString(StringBuilder& target) const;
+    virtual void appendToString(StringBuilder& target) const;
     void setValue(bool val);
     bool getValue() const;
     

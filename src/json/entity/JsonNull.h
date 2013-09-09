@@ -26,7 +26,7 @@ public:
         return JsonValue::Null;
     }
     
-    virtual void toString(StringBuilder& target) const;
+    virtual void appendToString(StringBuilder& target) const;
     
 protected:
     JsonNull()

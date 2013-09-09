@@ -8,3 +8,11 @@
 
 #include "JsonValue.h"
 
+String JsonValue::toString() const
+{
+    StringBuilder sb;
+
+    appendToString(sb);
+
+    return sb.toString();
+}

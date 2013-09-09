@@ -7,18 +7,3 @@
 //
 
 #include "SimpleJson.h"
-
-
-String jsonValueToString(JsonValue *value)
-{
-    if (value == 0)
-    {
-        return String();
-    }
-    
-    RefPtr<JsonValue> protect(value);
-    
-    StringBuilder jss;
-    value->toString(jss);
-    return jss.toString();
-}

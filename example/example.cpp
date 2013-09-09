@@ -65,13 +65,13 @@ int main(int argc, const char * argv[])
         
         printf("num = %f\n", num->getDouble());
         
-        String jss = jsonValueToString(root);
+        String jss = root->toString();
         print(jss);
         
         RefPtr<JsonValue> v = parser.parse(jss);
         if (!v.isNull())
         {
-            jss = jsonValueToString(v.get());
+            jss = v->toString();
             printf("\n");
             print(jss);
             if (v != root)

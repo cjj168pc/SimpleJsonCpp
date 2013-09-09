@@ -35,9 +35,10 @@ public:
     virtual ~JsonValue()
     {
     }
-    
+
     virtual ValueType type() const = 0;
-    virtual void toString(StringBuilder& target) const = 0;
+    virtual void appendToString(StringBuilder& target) const = 0;
+    String toString() const;
 
 	inline JsonObject* asObject()
 	{
@@ -93,6 +94,7 @@ protected:
     JsonValue()
     {
     }
+
     
 private:
     JsonValue(const JsonValue& other);

@@ -36,7 +36,7 @@ JsonValue::ValueType JsonNumber::type() const
     return JsonValue::Number;
 }
 
-void JsonNumber::toString(StringBuilder& target) const
+void JsonNumber::appendToString(StringBuilder& target) const
 {
     if (_isInt)
     {
