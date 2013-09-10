@@ -7,6 +7,7 @@
 //
 
 #include "JsonArray.h"
+#include "ValueVisitor.h"
 
 
 PassPtr<JsonArray> JsonArray::create()
@@ -28,23 +29,9 @@ JsonValue::ValueType JsonArray::type() const
     return JsonValue::Array;
 }
 
-void JsonArray::appendToString(StringBuilder& target) const
+void JsonArray::accept(ValueVisitor* visitor) const
 {
-    target.append('[');
-    bool first = true;
-    for (ValueVector::const_iterator it = _values.begin(); it != _values.end(); ++it)
-    {
-        if (first)
-        {
-            first = false;
-        }
-        else
-        {
-            target.append(',');
-        }
-        (*it)->appendToString(target);
-    }
-    target.append(']');
+    visitor->visitArray(this);
 }
 
 void JsonArray::add(JsonValue* value)
@@ -65,4 +52,30 @@ JsonValue* JsonArray::get(int index) const
 int JsonArray::count() const
 {
     return static_cast<int>(_values.size());
+}
+
+ArrayIterator JsonArray::iterator() const
+{
+    return ArrayIterator(_values.begin(), _values.end());
+}
+
+
+ArrayIterator::ArrayIterator(const IterImpl& begin, const IterImpl& end)
+    : _cur(begin), _end(end)
+{
+}
+
+JsonValue* ArrayIterator::get() const
+{
+    return (*_cur).get();
+}
+
+void ArrayIterator::next()
+{
+    ++_cur;
+}
+
+bool ArrayIterator::hasNext() const
+{
+    return _cur != _end;
 }

@@ -14,25 +14,45 @@
 #include "RefPtr.h"
 #include <vector>
 
+class ArrayIterator;
+
 class JsonArray : public JsonValue
 {
 public:
+    typedef std::vector<RefPtr<JsonValue> > ValueVector;
+
     static PassPtr<JsonArray> create();
     
     virtual ~JsonArray();
     virtual ValueType type() const;
-    virtual void appendToString(StringBuilder& target) const;
+    virtual void accept(ValueVisitor* visitor) const;
     void add(JsonValue* value);
 	void add(RefPtr<JsonValue> value);
     JsonValue* get(int index) const;
     int count() const;
+    ArrayIterator iterator() const;
     
 protected:
     JsonArray();
     
 private:
-    typedef std::vector<RefPtr<JsonValue> > ValueVector;
     ValueVector _values;
+};
+
+
+class ArrayIterator
+{
+public:
+    typedef JsonArray::ValueVector::const_iterator IterImpl;
+
+    ArrayIterator(const IterImpl& begin, const IterImpl& end);
+    JsonValue* get() const;
+    void next();
+    bool hasNext() const;
+
+private:
+    IterImpl _cur;
+    IterImpl _end;
 };
 
 #endif /* defined(__SimpleJsonCpp__JsonArray__) */

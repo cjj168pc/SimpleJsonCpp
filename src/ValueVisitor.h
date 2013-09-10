@@ -1,5 +1,5 @@
 //
-//  ValueVisitor.h
+//  ValueStringVisitor.h
 //  SimpleJsonCpp
 //
 //  Created by Chen Jiajun on 13-9-9.
@@ -22,7 +22,12 @@ class JsonNull;
 class ValueVisitor
 {
 public:
-    virtual void visit(JsonValue* value) = 0;
+    virtual void visitObject(const JsonObject* value) = 0;
+    virtual void visitArray(const JsonArray* array) = 0;
+    virtual void visitString(const JsonString* str) = 0;
+    virtual void visitNumber(const JsonNumber* num) = 0;
+    virtual void visitBoolean(const JsonBoolean* boo) = 0;
+    virtual void visitNull() = 0;
 };
 
 
@@ -30,17 +35,15 @@ class ValueStringVisitor : public ValueVisitor
 {
 public:
     ValueStringVisitor();
-    virtual void visit(JsonValue* value);
+    virtual void visitObject(const JsonObject* value);
+    virtual void visitArray(const JsonArray* array);
+    virtual void visitString(const JsonString* str);
+    virtual void visitNumber(const JsonNumber* num);
+    virtual void visitBoolean(const JsonBoolean* boo);
+    virtual void visitNull();
     String getResult() const;
 
 private:
-    void forObject(JsonObject* obj);
-    void forArray(JsonArray* arr);
-    void forString(JsonString* str);
-    void forNumber(JsonNumber* num);
-    void forBoolean(JsonBoolean* boo);
-    void forNull();
-
     StringBuilder _buff;
     int _depth;
 };

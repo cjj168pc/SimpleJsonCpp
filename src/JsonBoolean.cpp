@@ -7,6 +7,7 @@
 //
 
 #include "JsonBoolean.h"
+#include "ValueVisitor.h"
 
 
 PassPtr<JsonBoolean> JsonBoolean::create(bool val)
@@ -29,12 +30,9 @@ JsonValue::ValueType JsonBoolean::type() const
     return JsonValue::Boolean;
 }
 
-void JsonBoolean::appendToString(StringBuilder& target) const
+void JsonBoolean::accept(ValueVisitor* visitor) const
 {
-    static String strTrue = L"true";
-    static String strFalse = L"false";
-    
-    target.append(_value ? strTrue : strFalse);
+	visitor->visitBoolean(this);
 }
 
 void JsonBoolean::setValue(bool val)

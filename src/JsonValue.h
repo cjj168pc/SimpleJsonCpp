@@ -18,6 +18,7 @@ class JsonArray;
 class JsonNumber;
 class JsonBoolean;
 class JsonNull;
+class ValueVisitor;
 
 class JsonValue : public RefCounted<JsonValue>
 {
@@ -37,7 +38,7 @@ public:
     }
 
     virtual ValueType type() const = 0;
-    virtual void appendToString(StringBuilder& target) const = 0;
+    virtual void accept(ValueVisitor* visitor) const = 0;
     String toString() const;
 
 	inline JsonObject* asObject()

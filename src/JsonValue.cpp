@@ -7,13 +7,11 @@
 //
 
 #include "JsonValue.h"
-#include "JsonError.h"
+#include "ValueSerializer.h"
 
 String JsonValue::toString() const
 {
-    StringBuilder sb;
-
-    appendToString(sb);
-
-    return sb.toString();
+	ValueSerializer ser;
+	accept(&ser);
+	return ser.getResult();
 }

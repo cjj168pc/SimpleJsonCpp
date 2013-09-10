@@ -15,25 +15,46 @@
 #include "MyString.h"
 #include <map>
 
+class ObjectIterator;
+
 class JsonObject : public JsonValue
 {
 public:
+    typedef std::map<String, RefPtr<JsonValue> > PairMap;
+
     static PassPtr<JsonObject> create();
     
     virtual ~JsonObject();
     virtual ValueType type() const;
-    virtual void appendToString(StringBuilder& target) const;
+    virtual void accept(ValueVisitor* visitor) const;
     void add(const String& key, JsonValue* value);
 	void add(const String& key, RefPtr<JsonValue> value);
     JsonValue* getValue(const String& key) const;
     int count() const;
+    ObjectIterator iterator() const;
     
 protected:
     JsonObject();
     
 private:
-    typedef std::map<String, RefPtr<JsonValue> > PairMap;
     PairMap _pairs;
+};
+
+
+class ObjectIterator
+{
+public:
+    typedef JsonObject::PairMap::const_iterator IterImpl;
+
+    ObjectIterator(const IterImpl& begin, const IterImpl& end);
+    String getKey() const;
+    JsonValue* getValue() const;
+    void next();
+    bool hasNext() const;
+
+private:
+    IterImpl _cur;
+    IterImpl _end;
 };
 
 #endif /* defined(__SimpleJsonCpp__JsonObject__) */

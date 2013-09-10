@@ -7,6 +7,7 @@
 //
 
 #include "JsonNull.h"
+#include "ValueVisitor.h"
 
 
 PassPtr<JsonNull> JsonNull::create()
@@ -15,8 +16,7 @@ PassPtr<JsonNull> JsonNull::create()
     return adoptRef(jn);
 }
 
-void JsonNull::appendToString(StringBuilder& target) const
+void JsonNull::accept(ValueVisitor* visitor) const
 {
-    static String strNull = L"null";
-    target.append(strNull);
+	visitor->visitNull();
 }

@@ -7,6 +7,7 @@
 //
 
 #include "JsonNumber.h"
+#include "ValueVisitor.h"
 
 
 PassPtr<JsonNumber> JsonNumber::create(double num)
@@ -36,16 +37,9 @@ JsonValue::ValueType JsonNumber::type() const
     return JsonValue::Number;
 }
 
-void JsonNumber::appendToString(StringBuilder& target) const
+void JsonNumber::accept(ValueVisitor* visitor) const
 {
-    if (_isInt)
-    {
-        target.appendInt(_ivalue);
-    }
-    else
-    {
-        target.appendDouble(_fvalue);
-    }
+    visitor->visitNumber(this);
 }
 
 void JsonNumber::setValue(double num)

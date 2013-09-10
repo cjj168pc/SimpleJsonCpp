@@ -7,6 +7,7 @@
 //
 
 #include "JsonString.h"
+#include "ValueVisitor.h"
 
 
 static inline wchar_t digitToChar(wchar_t digit)
@@ -92,9 +93,9 @@ JsonValue::ValueType JsonString::type() const
     return JsonValue::Literal;
 }
 
-void JsonString::appendToString(StringBuilder& target) const
+void JsonString::accept(ValueVisitor* visitor) const
 {
-    appendReferencedString(target, _str);
+    visitor->visitString(this);
 }
 
 void JsonString::appendReferencedString(StringBuilder& target, String src)

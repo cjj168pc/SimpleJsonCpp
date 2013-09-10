@@ -21,7 +21,7 @@ public:
     
     virtual ~JsonString();
     virtual ValueType type() const;
-    virtual void appendToString(StringBuilder& target) const;
+    virtual void accept(ValueVisitor* visitor) const;
     String getString() const;
     void setString(String str);
     

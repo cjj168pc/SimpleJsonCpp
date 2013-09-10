@@ -8,6 +8,7 @@
 
 #include "JsonObject.h"
 #include "JsonString.h"
+#include "ValueVisitor.h"
 
 
 PassPtr<JsonObject> JsonObject::create()
@@ -29,25 +30,9 @@ JsonObject::ValueType JsonObject::type() const
     return JsonValue::Object;
 }
 
-void JsonObject::appendToString(StringBuilder& target) const
+void JsonObject::accept(ValueVisitor* visitor) const
 {
-    target.append('{');
-    bool first = true;
-    for (PairMap::const_iterator it = _pairs.begin(); it != _pairs.end(); ++it)
-    {
-        if (first)
-        {
-            first = false;
-        }
-        else
-        {
-            target.append(',');
-        }
-        JsonString::appendReferencedString(target, (*it).first);
-        target.append(':');
-        (*it).second->appendToString(target);
-    }
-    target.append('}');
+    visitor->visitObject(this);
 }
 
 void JsonObject::add(const String& key, JsonValue* value)
@@ -75,3 +60,33 @@ int JsonObject::count() const
     return static_cast<int>(_pairs.size());
 }
 
+ObjectIterator JsonObject::iterator() const
+{
+    return ObjectIterator(_pairs.begin(), _pairs.end());
+}
+
+
+ObjectIterator::ObjectIterator(const IterImpl& begin, const IterImpl& end)
+    : _cur(begin), _end(end)
+{
+}
+
+String ObjectIterator::getKey() const
+{
+    return (*_cur).first;
+}
+
+JsonValue* ObjectIterator::getValue() const
+{
+    return (*_cur).second.get();
+}
+
+void ObjectIterator::next()
+{
+    ++_cur;
+}
+
+bool ObjectIterator::hasNext() const
+{
+    return _cur != _end;
+}

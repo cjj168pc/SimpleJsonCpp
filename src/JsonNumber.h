@@ -20,7 +20,7 @@ public:
     
     virtual ~JsonNumber();
     virtual ValueType type() const;
-    virtual void appendToString(StringBuilder& target) const;
+    virtual void accept(ValueVisitor* visitor) const;
     void setValue(double num);
     void setValue(int num);
     double getDouble() const;
